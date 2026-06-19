@@ -1,4 +1,4 @@
-# 🚜 Grow A Garden 2 Wiki
+# 🚜 Grow A Game 2 Wiki
 
 **🌐 Live Website:** [https://san1na.github.io/](https://san1na.github.io/)
 
