@@ -129,16 +129,17 @@
                     <p>These weathers can trigger at any time and overlay on the current day/night cycle:</p>
                     <ul>
                         <li><strong>🌧️ Rain</strong> (Weight: 120, Lasts 300s): Grants <b>2x Growth Speed</b> to all plants.</li>
-                        <li><strong>⚡ Lightning</strong> (Weight: 90, Lasts 300s): Grants a chance for <b>Electric</b> mutations.</li>
-                        <li><strong>🌈 Rainbow</strong> (Weight: 60, Lasts 300s): Significantly boosts <b>Rainbow</b> mutation luck.</li>
-                        <li><strong>❄️ Snowfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Frozen</b> mutations.</li>
-                        <li><strong>☄️ Starfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Starstruck</b> mutations.</li>
+                        <li><strong>⚡ Lightning</strong> (Weight: 90, Lasts 300s): Grants a chance for <b>Electric</b> mutations (25x Price Multiplier).</li>
+                        <li><strong>🌈 Rainbow</strong> (Weight: 60, Lasts 300s): Significantly boosts <b>Rainbow</b> mutation luck (30x Price Multiplier).</li>
+                        <li><strong>❄️ Snowfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Frozen</b> mutations (14x Price Multiplier).</li>
+                        <li><strong>☄️ Starfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Starstruck</b> mutations (50x Price Multiplier).</li>
                     </ul>
+                    <p><i>Note: The Bloodmoon grants the Bloodlit mutation (60x) and the Goldmoon grants the Gold mutation (10x).</i></p>
                 </div>
             </div>
 
             <div class="Box">
-                <div class="Box-header">Offline Growth Boost</div>
+                <div class="Box-header">⏳ Offline Growth Boost</div>
                 <div class="Box-body">
                     <p>When you leave the game, your farm calculates <code>Overtime Growth</code> multipliers when you return:</p>
                     <ul>
@@ -149,9 +150,137 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="Box" style="border-color: #0969da;">
+                <div class="Box-header" style="background-color: #ddf4ff; color: #0969da; border-bottom-color: #0969da;">
+                    🧮 Fruit Value Calculator (Datamined Exact Math)
+                </div>
+                <div class="Box-body">
+                    <p>Select your fruit, input the weight, and pick a mutation to calculate the exact sell value. This uses the real server formula (including the 5kg diminishing returns penalty).</p>
+                    
+                    <div style="display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Fruit Type:</label>
+                            <select id="calc-fruit" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
+                                <option value="5" data-single="true">Carrot</option>
+                                <option value="3" data-single="false">Strawberry</option>
+                                <option value="5" data-single="false">Blueberry</option>
+                                <option value="60" data-single="true">Tulip</option>
+                                <option value="9" data-single="false">Tomato</option>
+                                <option value="12" data-single="false">Apple</option>
+                                <option value="800" data-single="true" data-exp="1.75">Bamboo</option>
+                                <option value="34" data-single="false">Corn</option>
+                                <option value="40" data-single="false">Cactus</option>
+                                <option value="30" data-single="false">Pineapple</option>
+                                <option value="70" data-single="false">Baby Cactus</option>
+                                <option value="200" data-single="false">Horned Melon</option>
+                                <option value="13000" data-single="true" data-exp="1.9">Mushroom</option>
+                                <option value="10" data-single="false">Green Bean</option>
+                                <option value="35" data-single="false">Banana</option>
+                                <option value="45" data-single="false">Grape</option>
+                                <option value="60" data-single="false">Coconut</option>
+                                <option value="90" data-single="false">Mango</option>
+                                <option value="700" data-single="false">Glow Mushroom</option>
+                                <option value="150" data-single="false">Dragon Fruit</option>
+                                <option value="200" data-single="false">Acorn</option>
+                                <option value="350" data-single="false">Cherry</option>
+                                <option value="1750" data-single="false">Sunflower</option>
+                                <option value="1700" data-single="false">Poison Ivy</option>
+                                <option value="3000" data-single="false">Venus Fly Trap</option>
+                                <option value="900" data-single="false">Pomegranate</option>
+                                <option value="900" data-single="false">Poison Apple</option>
+                                <option value="2500" data-single="false">Ghost Pepper</option>
+                                <option value="1500" data-single="false">Romanesco</option>
+                                <option value="9000" data-single="false">Moon Bloom</option>
+                                <option value="3400" data-single="false">Dragon's Breath</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Weight (kg):</label>
+                            <input type="number" id="calc-weight" value="1.0" step="0.1" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Mutation:</label>
+                            <select id="calc-mutation" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
+                                <option value="1">None (1x)</option>
+                                <option value="10">Gold (10x)</option>
+                                <option value="14">Frozen (14x)</option>
+                                <option value="25">Electric (25x)</option>
+                                <option value="30">Rainbow (30x)</option>
+                                <option value="50">Starstruck (50x)</option>
+                                <option value="60">Bloodlit (60x)</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Friends on Plot:</label>
+                            <input type="number" id="calc-friends" value="0" min="0" max="10" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px; padding: 16px; background-color: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; text-align: center;">
+                        <span style="font-size: 16px; color: #57606a;">Final Sell Value:</span>
+                        <div id="calc-result" style="font-size: 32px; font-weight: 700; color: #1a7f37; margin-top: 8px;">🪙 0</div>
+                    </div>
+                </div>
+            </div>
             
             </div>
         </div>
     </main>
+
+    <script>
+        function calculateFruitValue() {
+            const fruitSelect = document.getElementById('calc-fruit');
+            const selectedOption = fruitSelect.options[fruitSelect.selectedIndex];
+            
+            const baseValue = parseFloat(selectedOption.value);
+            const isSingleHarvest = selectedOption.getAttribute('data-single') === 'true';
+            const customExp = selectedOption.getAttribute('data-exp');
+            
+            const weight = parseFloat(document.getElementById('calc-weight').value) || 0;
+            const baseMutMult = parseFloat(document.getElementById('calc-mutation').value) || 1;
+            const friends = parseInt(document.getElementById('calc-friends').value) || 0;
+
+            // 1. Mutation Multiplier (Nerfed for Single Harvests)
+            let mutationMult = baseMutMult;
+            if (isSingleHarvest && baseMutMult > 1) {
+                mutationMult = 1 + (baseMutMult - 1) * 0.15;
+            }
+
+            // 2. Weight Multiplier (Diminishing returns after 5kg)
+            let sizeExponent = customExp ? parseFloat(customExp) : 2.65;
+            let weightMult = 1;
+            if (weight > 0) {
+                if (weight <= 5) {
+                    weightMult = Math.pow(weight, sizeExponent);
+                } else {
+                    weightMult = Math.pow(5, sizeExponent) * Math.pow((weight / 5), 1.5);
+                }
+            } else {
+                weightMult = 0;
+            }
+
+            // 3. Friends Multiplier
+            const friendsMult = 1 + (friends * 0.1);
+
+            // Final Calculation (Weather damage is left out as users assume perfectly grown for max potential)
+            let finalValue = Math.floor(baseValue * weightMult * mutationMult * friendsMult);
+
+            // Formatting
+            document.getElementById('calc-result').innerHTML = `🪙 ${finalValue.toLocaleString()}`;
+        }
+
+        // Add event listeners to all inputs
+        document.getElementById('calc-fruit').addEventListener('change', calculateFruitValue);
+        document.getElementById('calc-weight').addEventListener('input', calculateFruitValue);
+        document.getElementById('calc-mutation').addEventListener('change', calculateFruitValue);
+        document.getElementById('calc-friends').addEventListener('input', calculateFruitValue);
+
+        // Initial calculation
+        calculateFruitValue();
+    </script>
 </body>
 </html>
