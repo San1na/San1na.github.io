@@ -113,14 +113,26 @@
             </div>
 
             <div class="Box">
-                <div class="Box-header">Weather Mechanics</div>
+                <div class="Box-header">🌤️ Weather & Moon Mechanics</div>
                 <div class="Box-body">
+                    <p>The game features standard weather events and a powerful <b>Moon Cycle</b> at night.</p>
+                    <h3>Day/Night Moon Cycle</h3>
+                    <p>Every night, the server rolls a chance to spawn a special Moon, which buffs specific mutations:</p>
                     <ul>
-                        <li><strong>🌧️ Rain:</strong> Grants 2x Growth Speed (300s).</li>
-                        <li><strong>⚡ Lightning:</strong> Chance for Electric fruit (300s).</li>
-                        <li><strong>🌈 Rainbow:</strong> Boosts Rainbow luck (300s).</li>
-                        <li><strong>❄️ Snowfall:</strong> Chance for Frozen fruit (150s).</li>
-                        <li><strong>☄️ Starfall:</strong> Chance for Starstruck fruit (150s).</li>
+                        <li><strong>🌙 Normal Moon</strong> (79%): Standard night.</li>
+                        <li><strong>🌕 Goldmoon</strong> (13%): Grants a massive chance for <b>Gold</b> plant/fruit mutations.</li>
+                        <li><strong>🟣 Rainbow Moon</strong> (6%): Grants a massive chance for <b>Rainbow</b> plant/fruit mutations.</li>
+                        <li><strong>🩸 Bloodmoon</strong> (2%): Extremely rare! Grants a chance for the <b>Bloodlit</b> mutation.</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 16px;">Random Weather Events</h3>
+                    <p>These weathers can trigger at any time and overlay on the current day/night cycle:</p>
+                    <ul>
+                        <li><strong>🌧️ Rain</strong> (Weight: 120, Lasts 300s): Grants <b>2x Growth Speed</b> to all plants.</li>
+                        <li><strong>⚡ Lightning</strong> (Weight: 90, Lasts 300s): Grants a chance for <b>Electric</b> mutations.</li>
+                        <li><strong>🌈 Rainbow</strong> (Weight: 60, Lasts 300s): Significantly boosts <b>Rainbow</b> mutation luck.</li>
+                        <li><strong>❄️ Snowfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Frozen</b> mutations.</li>
+                        <li><strong>☄️ Starfall</strong> (Weight: 30, Lasts 150s): Grants a chance for <b>Starstruck</b> mutations.</li>
                     </ul>
                 </div>
             </div>
