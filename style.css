@@ -10,6 +10,8 @@
     --color-btn-border: rgba(27,31,36,0.15);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,20 +19,49 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-    font-size: 14px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    background-color: #f6f8fa;
+    color: #24292f;
     line-height: 1.5;
-    color: var(--color-fg-default);
-    background-color: var(--color-bg-default);
+    animation: fadeIn 0.4s ease-out;
 }
 
-a {
-    color: var(--color-accent-fg);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseResult {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); color: #2da44e; }
+    100% { transform: scale(1); }
+}
+
+.pulse-anim {
+    animation: pulseResult 0.3s ease-out;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 8px;
+    color: #0969da;
     text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-a:hover {
+.sidebar-link:hover {
+    background-color: #f3f4f6;
     text-decoration: underline;
+    padding-left: 12px;
+}
+
+.sidebar-link i {
+    width: 16px;
+    height: 16px;
 }
 
 /* Header & Repo Navigation */
@@ -85,10 +116,17 @@ nav a.active {
 
 /* GitHub Readme Box */
 .Box {
-    background-color: var(--color-bg-default);
-    border: 1px solid var(--color-border-default);
+    background-color: #ffffff;
+    border: 1px solid #d0d7de;
     border-radius: 6px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.Box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27,31,36,0.08);
 }
 
 .Box-header {
