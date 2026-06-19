@@ -248,3 +248,11 @@ table th {
 .legendary { background-color: #fff8c5; color: #9a6700; border-color: rgba(212,167,44,0.2); }
 .mythic { background-color: #ffebe9; color: #cf222e; border-color: rgba(207,34,46,0.2); }
 .super { background-color: #4c2889; color: #ffffff; border-color: rgba(76,40,137,0.2); }
+
+/* Apple Emoji Styling */
+img.emoji {
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+}
