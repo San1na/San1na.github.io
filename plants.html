@@ -162,42 +162,42 @@
                         <div style="flex: 1; min-width: 200px;">
                             <label style="font-weight: 600; display: block; margin-bottom: 4px;">Fruit Type:</label>
                             <select id="calc-fruit" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
-                                <option value="5" data-single="true">Carrot</option>
-                                <option value="3" data-single="false">Strawberry</option>
-                                <option value="5" data-single="false">Blueberry</option>
-                                <option value="60" data-single="true">Tulip</option>
-                                <option value="9" data-single="false">Tomato</option>
-                                <option value="12" data-single="false">Apple</option>
-                                <option value="800" data-single="true" data-exp="1.75">Bamboo</option>
-                                <option value="34" data-single="false">Corn</option>
-                                <option value="40" data-single="false">Cactus</option>
-                                <option value="30" data-single="false">Pineapple</option>
-                                <option value="70" data-single="false">Baby Cactus</option>
-                                <option value="200" data-single="false">Horned Melon</option>
-                                <option value="13000" data-single="true" data-exp="1.9">Mushroom</option>
-                                <option value="10" data-single="false">Green Bean</option>
-                                <option value="35" data-single="false">Banana</option>
-                                <option value="45" data-single="false">Grape</option>
-                                <option value="60" data-single="false">Coconut</option>
-                                <option value="90" data-single="false">Mango</option>
-                                <option value="700" data-single="false">Glow Mushroom</option>
-                                <option value="150" data-single="false">Dragon Fruit</option>
-                                <option value="200" data-single="false">Acorn</option>
-                                <option value="350" data-single="false">Cherry</option>
-                                <option value="1750" data-single="false">Sunflower</option>
-                                <option value="1700" data-single="false">Poison Ivy</option>
-                                <option value="3000" data-single="false">Venus Fly Trap</option>
-                                <option value="900" data-single="false">Pomegranate</option>
-                                <option value="900" data-single="false">Poison Apple</option>
-                                <option value="2500" data-single="false">Ghost Pepper</option>
-                                <option value="1500" data-single="false">Romanesco</option>
-                                <option value="9000" data-single="false">Moon Bloom</option>
-                                <option value="3400" data-single="false">Dragon's Breath</option>
+                                <option value="5" data-single="true" data-baseweight="0.8">Carrot</option>
+                                <option value="3" data-single="false" data-baseweight="1">Strawberry</option>
+                                <option value="5" data-single="false" data-baseweight="1.15">Blueberry</option>
+                                <option value="60" data-single="true" data-baseweight="0.5">Tulip</option>
+                                <option value="9" data-single="false" data-baseweight="0.9">Tomato</option>
+                                <option value="12" data-single="false" data-baseweight="1.5">Apple</option>
+                                <option value="800" data-single="true" data-exp="1.75" data-baseweight="4">Bamboo</option>
+                                <option value="34" data-single="false" data-baseweight="3">Corn</option>
+                                <option value="40" data-single="false" data-baseweight="1.5">Cactus</option>
+                                <option value="30" data-single="false" data-baseweight="5">Pineapple</option>
+                                <option value="70" data-single="false" data-baseweight="1.5">Baby Cactus</option>
+                                <option value="200" data-single="false" data-baseweight="1.125">Horned Melon</option>
+                                <option value="13000" data-single="true" data-exp="1.9" data-baseweight="5">Mushroom</option>
+                                <option value="10" data-single="false" data-baseweight="0.5">Green Bean</option>
+                                <option value="35" data-single="false" data-baseweight="1.5">Banana</option>
+                                <option value="45" data-single="false" data-baseweight="2">Grape</option>
+                                <option value="60" data-single="false" data-baseweight="1.5">Coconut</option>
+                                <option value="90" data-single="false" data-baseweight="3">Mango</option>
+                                <option value="700" data-single="false" data-baseweight="7">Glow Mushroom</option>
+                                <option value="150" data-single="false" data-baseweight="3">Dragon Fruit</option>
+                                <option value="200" data-single="false" data-baseweight="1.5">Acorn</option>
+                                <option value="350" data-single="false" data-baseweight="1.5">Cherry</option>
+                                <option value="1750" data-single="false" data-baseweight="6">Sunflower</option>
+                                <option value="1700" data-single="false" data-baseweight="2.1">Poison Ivy</option>
+                                <option value="3000" data-single="false" data-baseweight="3">Venus Fly Trap</option>
+                                <option value="900" data-single="false" data-baseweight="1.5">Pomegranate</option>
+                                <option value="900" data-single="false" data-baseweight="2.25">Poison Apple</option>
+                                <option value="2500" data-single="false" data-baseweight="7.5">Ghost Pepper</option>
+                                <option value="1500" data-single="false" data-baseweight="1.5">Romanesco</option>
+                                <option value="9000" data-single="false" data-baseweight="9">Moon Bloom</option>
+                                <option value="3400" data-single="false" data-baseweight="7.5">Dragon's Breath</option>
                             </select>
                         </div>
                         <div style="flex: 1; min-width: 200px;">
                             <label style="font-weight: 600; display: block; margin-bottom: 4px;">Weight (kg):</label>
-                            <input type="number" id="calc-weight" value="1.0" step="0.1" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
+                            <input type="number" id="calc-weight" placeholder="e.g. 1.81" step="0.01" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
                         </div>
                     </div>
 
@@ -205,24 +205,23 @@
                         <div style="flex: 1; min-width: 200px;">
                             <label style="font-weight: 600; display: block; margin-bottom: 4px;">Mutation:</label>
                             <select id="calc-mutation" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
-                                <option value="1">None (1x)</option>
+                                <option value="1">None</option>
                                 <option value="10">Gold (10x)</option>
+                                <option value="30">Rainbow (30x)</option>
+                                <option value="60">Bloodlit (60x)</option>
                                 <option value="14">Frozen (14x)</option>
                                 <option value="25">Electric (25x)</option>
-                                <option value="30">Rainbow (30x)</option>
                                 <option value="50">Starstruck (50x)</option>
-                                <option value="60">Bloodlit (60x)</option>
                             </select>
-                        </div>
-                        <div style="flex: 1; min-width: 200px;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Friends on Plot:</label>
-                            <input type="number" id="calc-friends" value="0" min="0" max="10" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
                         </div>
                     </div>
 
                     <div style="margin-top: 24px; padding: 16px; background-color: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; text-align: center;">
-                        <span style="font-size: 16px; color: #57606a;">Final Sell Value:</span>
+                        <span style="font-size: 16px; color: #57606a;">Pure Base Value (Online, No Damage, 0 Friends):</span>
                         <div id="calc-result" style="font-size: 32px; font-weight: 700; color: #1a7f37; margin-top: 8px;">🪙 0</div>
+                        <div style="color: #cf222e; font-size: 13px; font-weight: 600; margin-top: 12px;">
+                            WARNING: The price is not exact and the value is approximate! The game uses hidden weather and offline growth mechanics that can change the final value.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -239,10 +238,14 @@
             const baseValue = parseFloat(selectedOption.value);
             const isSingleHarvest = selectedOption.getAttribute('data-single') === 'true';
             const customExp = selectedOption.getAttribute('data-exp');
+            const baseWeight = parseFloat(selectedOption.getAttribute('data-baseweight'));
             
-            const weight = parseFloat(document.getElementById('calc-weight').value) || 0;
+            const physicalWeight = parseFloat(document.getElementById('calc-weight').value) || 0;
             const baseMutMult = parseFloat(document.getElementById('calc-mutation').value) || 1;
-            const friends = parseInt(document.getElementById('calc-friends').value) || 0;
+
+            // 0. Calculate SizeMultiplier (The hidden stat the server actually uses)
+            // Physical Weight is just (SizeMultiplier * BaseWeight)
+            const sizeMultiplier = physicalWeight / baseWeight;
 
             // 1. Mutation Multiplier (Nerfed for Single Harvests)
             let mutationMult = baseMutMult;
@@ -250,24 +253,21 @@
                 mutationMult = 1 + (baseMutMult - 1) * 0.15;
             }
 
-            // 2. Weight Multiplier (Diminishing returns after 5kg)
+            // 2. Weight Multiplier (Diminishing returns after SizeMultiplier > 5)
             let sizeExponent = customExp ? parseFloat(customExp) : 2.65;
             let weightMult = 1;
-            if (weight > 0) {
-                if (weight <= 5) {
-                    weightMult = Math.pow(weight, sizeExponent);
+            if (sizeMultiplier > 0) {
+                if (sizeMultiplier <= 5) {
+                    weightMult = Math.pow(sizeMultiplier, sizeExponent);
                 } else {
-                    weightMult = Math.pow(5, sizeExponent) * Math.pow((weight / 5), 1.5);
+                    weightMult = Math.pow(5, sizeExponent) * Math.pow((sizeMultiplier / 5), 1.5);
                 }
             } else {
                 weightMult = 0;
             }
 
-            // 3. Friends Multiplier
-            const friendsMult = 1 + (friends * 0.1);
-
-            // Final Calculation (Weather damage is left out as users assume perfectly grown for max potential)
-            let finalValue = Math.floor(baseValue * weightMult * mutationMult * friendsMult);
+            // Final Calculation (Pure base value without friends or penalties)
+            let finalValue = Math.floor(baseValue * weightMult * mutationMult);
 
             // Formatting
             document.getElementById('calc-result').innerHTML = `🪙 ${finalValue.toLocaleString()}`;
@@ -277,7 +277,6 @@
         document.getElementById('calc-fruit').addEventListener('change', calculateFruitValue);
         document.getElementById('calc-weight').addEventListener('input', calculateFruitValue);
         document.getElementById('calc-mutation').addEventListener('change', calculateFruitValue);
-        document.getElementById('calc-friends').addEventListener('input', calculateFruitValue);
 
         // Initial calculation
         calculateFruitValue();
