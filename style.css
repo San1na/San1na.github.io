@@ -26,28 +26,24 @@ body {
     animation: fadeIn 0.4s ease-out;
 }
 
-/* Dynamic Sky Background */
-.sky-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-    background: linear-gradient(180deg, #60a5fa 0%, #bae6fd 100%);
-}
-.sky-bg::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    animation: dayNightCycle 30s ease-in-out infinite alternate;
-    opacity: 0;
-}
-
-@keyframes dayNightCycle {
-    0%, 20% { opacity: 0; }
-    40%, 60% { opacity: 0.5; } /* Sunset/Dusk */
-    80%, 100% { opacity: 1; }
-}
+/* Synchronized Dynamic Sky Background */
+.sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.sky__grad { position: absolute; inset: 0; will-change: background; }
+.sky__stars { position: absolute; inset: 0; opacity: 0; clip-path: inset(0 0 0 0); }
+.sky__stars .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle var(--tw, 2s) ease-in-out infinite alternate; }
+@keyframes twinkle { 0% { opacity: .3; } 100% { opacity: .95; } }
+.sky__clouds { position: absolute; inset: 0; clip-path: inset(0 0 0 0); transition: opacity 0.5s ease; }
+.cloud { position: absolute; width: 70px; height: 26px; background: #fff; border-radius: 50px; opacity: .95; box-shadow: 28px 6px 0 -4px #fff, -26px 8px 0 -6px #fff, 12px -12px 0 -4px #fff; will-change: transform; }
+.cloud:after { content: ""; position: absolute; inset: 0; border-radius: 50px; background: linear-gradient(180deg, #fff, #e7f3fb); }
+.cloud--a { top: 14%; left: -10%; --s: 1.1; animation: drift 80s linear infinite; }
+.cloud--b { top: 26%; left: -10%; --s: .8; animation: drift 120s linear infinite; animation-delay: -40s; }
+.cloud--c { top: 8%; left: -10%; --s: .65; animation: drift 100s linear infinite; animation-delay: -70s; }
+@keyframes drift { 0% { transform: translate(0) scale(var(--s, 1)); } 100% { transform: translate(130vw) scale(var(--s, 1)); } }
+.sky__celestial { position: absolute; inset: 0; }
+.sky__sun, .sky__moon { position: absolute; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; will-change: left, top, opacity; }
+.sky__sun { background: radial-gradient(circle at 42% 38%, #fff4b0, #ffd23a 58%, #ffae00); box-shadow: 0 0 0 8px rgba(255, 220, 90, 0.35), 0 0 40px 10px rgba(255, 200, 0, 0.4); }
+.sky__moon { background: radial-gradient(circle at 38% 32%, #fff, #dbe4ff 62%, #b3c0e8); box-shadow: 0 0 26px 6px rgba(200, 215, 255, 0.4); }
+.sky__glow { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 40%, rgba(255,215,0,.4), rgba(255,150,0,.1) 45%, transparent 70%); will-change: opacity; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -255,4 +251,149 @@ img.emoji {
     width: 1.2em;
     margin: 0 .05em 0 .1em;
     vertical-align: -0.1em;
+}
+
+/* Button & Modal Styling */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #24292f;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(27, 31, 36, 0.15);
+    border-radius: 6px;
+    box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: inherit;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.02);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-close {
+    padding: 6px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close:hover {
+    background-color: rgba(207, 34, 46, 0.1);
+    color: #cf222e;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: modalFadeIn 0.2s ease-out forwards;
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes modalSlideDown {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(15px); }
+}
+
+.modal-overlay.closing {
+    animation: modalFadeOut 0.2s ease-in forwards;
+}
+
+.modal-overlay.closing .modal-content {
+    animation: modalSlideDown 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Floating Draggable Widget */
+.floating-widget {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    background-color: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.2s ease-out forwards;
+}
+
+.widget-header {
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: grab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    user-select: none;
+}
+
+.widget-header:active {
+    cursor: grabbing;
+}
+
+.widget-body {
+    padding: 20px;
+    max-height: 65vh;
+    overflow-y: auto;
 }

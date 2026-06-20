@@ -7,7 +7,27 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 <body>
-    <div class="sky-bg"></div>
+    <div class="sky" id="sky-container">
+        <div class="sky__grad" id="sky-grad"></div>
+        <div class="sky__stars" id="sky-stars">
+            <div class="star" style="width:2px;height:2px;left:10%;top:20%;--tw:3s;"></div>
+            <div class="star" style="width:3px;height:3px;left:40%;top:30%;--tw:1s;"></div>
+            <div class="star" style="width:2px;height:2px;left:70%;top:15%;--tw:2.5s;"></div>
+            <div class="star" style="width:1.5px;height:1.5px;left:85%;top:40%;--tw:4s;"></div>
+            <div class="star" style="width:2px;height:2px;left:25%;top:50%;--tw:2s;"></div>
+            <div class="star" style="width:3px;height:3px;left:55%;top:10%;--tw:3.5s;"></div>
+        </div>
+        <div class="sky__clouds" id="sky-clouds">
+            <div class="cloud cloud--a"></div>
+            <div class="cloud cloud--b"></div>
+            <div class="cloud cloud--c"></div>
+        </div>
+        <div class="sky__celestial">
+            <div class="sky__sun" id="sky-sun"></div>
+            <div class="sky__moon" id="sky-moon"></div>
+        </div>
+        <div class="sky__glow" id="sky-glow"></div>
+    </div>
     <header>
         <div class="repo-title" style="display: flex; align-items: center; gap: 8px;">
             <img src="assets/logo.png" alt="GaG 2 Logo" style="height: 48px;">
@@ -27,9 +47,10 @@
                 README.md
             </div>
             <div class="Box-body">
-                <h1 style="display: flex; align-items: center; gap: 12px;"><img src="assets/logo.png" alt="Grow A Game 2 Logo" style="height: 40px;"> Wiki</h1>
-                <p>Welcome to the ultimate datamined Wiki for <b>Grow A Game 2</b>.</p>
-                <p>This repository contains extracted math, stats, and guides directly from the game's <code>SharedModules</code> source code.</p>
+                <h1 style="display: flex; align-items: center; gap: 12px;"><img src="assets/logo.png" alt="GaG 2 Logo" style="height: 40px;"> GaG 2 Wiki</h1>
+                <p>Hey! Welcome to the unofficial wiki for <b>Grow A Garden 2</b>.</p>
+                <p>If you're tired of guessing how the game actually works, you're in the right place. We dug straight into the game's code to pull the exact stats, drop chances, and math behind everything. No rumors, just raw data.</p>
+                <p>Pick a category below to get started:</p>
 
                 <h2><i data-lucide="list" style="display: inline-block; vertical-align: middle;"></i> Table of Contents</h2>
                 <ul style="list-style: none; padding: 0;">
@@ -46,5 +67,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-js@3.8.0/lib/emoji.min.js"></script>
     <script src="apple-emoji.js"></script>
+    <script src="sky-sync.js"></script>
 </body>
 </html>

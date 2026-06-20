@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GaG 2 Wiki</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="sky-bg"></div>
+    <div class="sky" id="sky-container">
+        <div class="sky__grad" id="sky-grad"></div>
+        <div class="sky__stars" id="sky-stars">
+            <div class="star" style="width:2px;height:2px;left:10%;top:20%;--tw:3s;"></div>
+            <div class="star" style="width:3px;height:3px;left:40%;top:30%;--tw:1s;"></div>
+            <div class="star" style="width:2px;height:2px;left:70%;top:15%;--tw:2.5s;"></div>
+            <div class="star" style="width:1.5px;height:1.5px;left:85%;top:40%;--tw:4s;"></div>
+            <div class="star" style="width:2px;height:2px;left:25%;top:50%;--tw:2s;"></div>
+            <div class="star" style="width:3px;height:3px;left:55%;top:10%;--tw:3.5s;"></div>
+        </div>
+        <div class="sky__clouds" id="sky-clouds">
+            <div class="cloud cloud--a"></div>
+            <div class="cloud cloud--b"></div>
+            <div class="cloud cloud--c"></div>
+        </div>
+        <div class="sky__celestial">
+            <div class="sky__sun" id="sky-sun"></div>
+            <div class="sky__moon" id="sky-moon"></div>
+        </div>
+        <div class="sky__glow" id="sky-glow"></div>
+    </div>
     <header>
         <div class="repo-title" style="display: flex; align-items: center; gap: 8px;">
             <img src="assets/logo.png" alt="GaG 2 Logo" style="height: 48px;">
@@ -29,7 +49,10 @@
             </div>
             <div class="Box-body">
                 <h2>🌱 Seeds & Plants Database</h2>
-            <p>Every seed, its shop price, base growth time, and harvest type.</p>
+                <div style="margin-bottom: 16px;">
+                    <button class="btn" onclick="document.getElementById('calc-widget').style.display='flex'"><i data-lucide="calculator" style="width: 16px; height: 16px;"></i> Open Fruit Calculator</button>
+                </div>
+                <p>Here's everything you need to know about farming. We've got all the exact growth times, base values, and the real chances of getting those rare crop mutations.</p>
             
             <table>
                 <thead>
@@ -150,80 +173,7 @@
                 </div>
             </div>
 
-            <div class="Box" style="border-color: #0969da;">
-                <div class="Box-header" style="background-color: #ddf4ff; color: #0969da; border-bottom-color: #0969da;">
-                    🧮 Fruit Value Calculator (Datamined Exact Math)
-                </div>
-                <div class="Box-body">
-                    <p>Select your fruit, input the weight, and pick a mutation to calculate the exact sell value. This uses the real server formula (including the 5kg diminishing returns penalty).</p>
-                    
-                    <div style="display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Fruit Type:</label>
-                            <select id="calc-fruit" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
-                                <option value="5" data-single="true" data-baseweight="0.8">Carrot</option>
-                                <option value="3" data-single="false" data-baseweight="1">Strawberry</option>
-                                <option value="5" data-single="false" data-baseweight="1.15">Blueberry</option>
-                                <option value="60" data-single="true" data-baseweight="0.5">Tulip</option>
-                                <option value="9" data-single="false" data-baseweight="0.9">Tomato</option>
-                                <option value="12" data-single="false" data-baseweight="1.5">Apple</option>
-                                <option value="800" data-single="true" data-exp="1.75" data-baseweight="4">Bamboo</option>
-                                <option value="34" data-single="false" data-baseweight="3">Corn</option>
-                                <option value="40" data-single="false" data-baseweight="1.5">Cactus</option>
-                                <option value="30" data-single="false" data-baseweight="5">Pineapple</option>
-                                <option value="70" data-single="false" data-baseweight="1.5">Baby Cactus</option>
-                                <option value="200" data-single="false" data-baseweight="1.125">Horned Melon</option>
-                                <option value="13000" data-single="true" data-exp="1.9" data-baseweight="5">Mushroom</option>
-                                <option value="10" data-single="false" data-baseweight="0.5">Green Bean</option>
-                                <option value="35" data-single="false" data-baseweight="1.5">Banana</option>
-                                <option value="45" data-single="false" data-baseweight="2">Grape</option>
-                                <option value="60" data-single="false" data-baseweight="1.5">Coconut</option>
-                                <option value="90" data-single="false" data-baseweight="3">Mango</option>
-                                <option value="700" data-single="false" data-baseweight="7">Glow Mushroom</option>
-                                <option value="150" data-single="false" data-baseweight="3">Dragon Fruit</option>
-                                <option value="200" data-single="false" data-baseweight="1.5">Acorn</option>
-                                <option value="350" data-single="false" data-baseweight="1.5">Cherry</option>
-                                <option value="1750" data-single="false" data-baseweight="6">Sunflower</option>
-                                <option value="1700" data-single="false" data-baseweight="2.1">Poison Ivy</option>
-                                <option value="3000" data-single="false" data-baseweight="3">Venus Fly Trap</option>
-                                <option value="900" data-single="false" data-baseweight="1.5">Pomegranate</option>
-                                <option value="900" data-single="false" data-baseweight="2.25">Poison Apple</option>
-                                <option value="2500" data-single="false" data-baseweight="7.5">Ghost Pepper</option>
-                                <option value="1500" data-single="false" data-baseweight="1.5">Romanesco</option>
-                                <option value="9000" data-single="false" data-baseweight="9">Moon Bloom</option>
-                                <option value="3400" data-single="false" data-baseweight="7.5">Dragon's Breath</option>
-                            </select>
-                        </div>
-                        <div style="flex: 1; min-width: 200px;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Weight (kg):</label>
-                            <input type="number" id="calc-weight" placeholder="e.g. 1.81" step="0.01" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
-                        </div>
-                    </div>
 
-                    <div style="display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Mutation:</label>
-                            <select id="calc-mutation" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #d0d7de;">
-                                <option value="1">None</option>
-                                <option value="10">Gold (10x)</option>
-                                <option value="30">Rainbow (30x)</option>
-                                <option value="60">Bloodlit (60x)</option>
-                                <option value="14">Frozen (14x)</option>
-                                <option value="25">Electric (25x)</option>
-                                <option value="50">Starstruck (50x)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 24px; padding: 16px; background-color: rgba(255, 255, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 12px; text-align: center;">
-                        <span style="font-size: 16px; color: #333;">Pure Base Value (Online, No Damage, 0 Friends):</span>
-                        <div id="calc-result" style="font-size: 32px; font-weight: 700; color: #1a7f37; margin-top: 8px;"><i data-lucide="coins" style="display:inline-block; vertical-align:middle; width:28px; height:28px;"></i> 0</div>
-                        <div style="color: #d1242f; font-size: 13px; font-weight: 600; margin-top: 12px;">
-                            WARNING: The price is not exact and the value is approximate! The game uses hidden weather and offline growth mechanics that can change the final value.
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             <div class="Box" style="margin-top: 24px;">
                 <div class="Box-header">
@@ -324,8 +274,139 @@
                     </div>
                 </div>
             </div>
+    </main>
+
+    <!-- Draggable Calculator Widget -->
+    <div id="calc-widget" class="floating-widget" style="display: none;">
+        <div id="calc-widget-header" class="widget-header">
+            <span style="display: flex; align-items: center; gap: 8px;"><i data-lucide="calculator" style="width: 18px; height: 18px;"></i> Calculator</span>
+            <button class="btn-close" onclick="document.getElementById('calc-widget').style.display='none'"><i data-lucide="x" style="width: 16px; height: 16px;"></i></button>
+        </div>
+        <div class="widget-body">
+            <p style="font-size: 14px; margin-top: 0;">Select your fruit, input the weight, and pick a mutation.</p>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="font-weight: 600; display: block; margin-bottom: 4px; font-size: 14px;">Fruit Type:</label>
+                <select id="calc-fruit" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid rgba(27, 31, 36, 0.15); background: rgba(255, 255, 255, 0.8);">
+                    <option value="5" data-single="true" data-baseweight="0.8">Carrot</option>
+                    <option value="3" data-single="false" data-baseweight="1">Strawberry</option>
+                    <option value="5" data-single="false" data-baseweight="1.15">Blueberry</option>
+                    <option value="60" data-single="true" data-baseweight="0.5">Tulip</option>
+                    <option value="9" data-single="false" data-baseweight="0.9">Tomato</option>
+                    <option value="12" data-single="false" data-baseweight="1.5">Apple</option>
+                    <option value="800" data-single="true" data-exp="1.75" data-baseweight="4">Bamboo</option>
+                    <option value="34" data-single="false" data-baseweight="3">Corn</option>
+                    <option value="40" data-single="false" data-baseweight="1.5">Cactus</option>
+                    <option value="30" data-single="false" data-baseweight="5">Pineapple</option>
+                    <option value="70" data-single="false" data-baseweight="1.5">Baby Cactus</option>
+                    <option value="200" data-single="false" data-baseweight="1.125">Horned Melon</option>
+                    <option value="13000" data-single="true" data-exp="1.9" data-baseweight="5">Mushroom</option>
+                    <option value="10" data-single="false" data-baseweight="0.5">Green Bean</option>
+                    <option value="35" data-single="false" data-baseweight="1.5">Banana</option>
+                    <option value="45" data-single="false" data-baseweight="2">Grape</option>
+                    <option value="60" data-single="false" data-baseweight="1.5">Coconut</option>
+                    <option value="90" data-single="false" data-baseweight="3">Mango</option>
+                    <option value="700" data-single="false" data-baseweight="7">Glow Mushroom</option>
+                    <option value="150" data-single="false" data-baseweight="3">Dragon Fruit</option>
+                    <option value="200" data-single="false" data-baseweight="1.5">Acorn</option>
+                    <option value="350" data-single="false" data-baseweight="1.5">Cherry</option>
+                    <option value="1750" data-single="false" data-baseweight="6">Sunflower</option>
+                    <option value="1700" data-single="false" data-baseweight="2.1">Poison Ivy</option>
+                    <option value="3000" data-single="false" data-baseweight="3">Venus Fly Trap</option>
+                    <option value="900" data-single="false" data-baseweight="1.5">Pomegranate</option>
+                    <option value="900" data-single="false" data-baseweight="2.25">Poison Apple</option>
+                    <option value="2500" data-single="false" data-baseweight="7.5">Ghost Pepper</option>
+                    <option value="1500" data-single="false" data-baseweight="1.5">Romanesco</option>
+                    <option value="9000" data-single="false" data-baseweight="9">Moon Bloom</option>
+                    <option value="3400" data-single="false" data-baseweight="7.5">Dragon's Breath</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label style="font-weight: 600; display: block; margin-bottom: 4px; font-size: 14px;">Weight (kg):</label>
+                <input type="number" id="calc-weight" placeholder="e.g. 1.81" step="0.01" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid rgba(27, 31, 36, 0.15); background: rgba(255, 255, 255, 0.8);">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label style="font-weight: 600; display: block; margin-bottom: 4px; font-size: 14px;">Mutation:</label>
+                <select id="calc-mutation" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid rgba(27, 31, 36, 0.15); background: rgba(255, 255, 255, 0.8);">
+                    <option value="1">None</option>
+                    <option value="10">Gold (10x)</option>
+                    <option value="30">Rainbow (30x)</option>
+                    <option value="60">Bloodlit (60x)</option>
+                    <option value="14">Frozen (14x)</option>
+                    <option value="25">Electric (25x)</option>
+                    <option value="50">Starstruck (50x)</option>
+                </select>
+            </div>
+            
+            <div style="padding: 16px; background-color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 12px; text-align: center;">
+                <span style="font-size: 14px; color: #333; font-weight: 600;">Pure Base Value:</span>
+                <div id="calc-result" style="font-size: 32px; font-weight: 700; color: #1a7f37; margin-top: 4px;"><i data-lucide="coins" style="display:inline-block; vertical-align:middle; width:28px; height:28px;"></i> 0</div>
+            </div>
+            <div style="color: #d1242f; font-size: 11px; margin-top: 12px;">
+                WARNING: The price is approximate! The game uses hidden weather & offline growth mechanics that can change the final value.
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Robust Drag Logic
+        const widget = document.getElementById('calc-widget');
+        const header = document.getElementById('calc-widget-header');
+        let pos3 = 0, pos4 = 0;
+        let currentX = 0, currentY = 0;
+        let isDragging = false;
+
+        header.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e.preventDefault();
+            isDragging = true;
+            
+            // Only capture coordinates once on the very first drag to remove CSS centering
+            if (widget.style.transform !== "none") {
+                const rect = widget.getBoundingClientRect();
+                currentX = rect.left;
+                currentY = rect.top;
+                
+                widget.style.margin = "0";
+                widget.style.transform = "none";
+                widget.style.left = currentX + "px";
+                widget.style.top = currentY + "px";
+                widget.style.bottom = "auto";
+                widget.style.right = "auto";
+            }
+            
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            // Calculate mouse delta
+            let dx = e.clientX - pos3;
+            let dy = e.clientY - pos4;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            
+            // Apply delta directly to absolute coordinates
+            currentX += dx;
+            currentY += dy;
+            
+            widget.style.left = currentX + "px";
+            widget.style.top = currentY + "px";
+        }
+
+        function closeDragElement() {
+            isDragging = false;
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+
         function calculateFruitValue() {
             const fruitSelect = document.getElementById('calc-fruit');
             const selectedOption = fruitSelect.options[fruitSelect.selectedIndex];
@@ -338,8 +419,7 @@
             const physicalWeight = parseFloat(document.getElementById('calc-weight').value) || 0;
             const baseMutMult = parseFloat(document.getElementById('calc-mutation').value) || 1;
 
-            // 0. Calculate SizeMultiplier (The hidden stat the server actually uses)
-            // Physical Weight is just (SizeMultiplier * BaseWeight)
+            // 0. Calculate SizeMultiplier
             const sizeMultiplier = physicalWeight / baseWeight;
 
             // 1. Mutation Multiplier (Nerfed for Single Harvests)
@@ -348,7 +428,7 @@
                 mutationMult = 1 + (baseMutMult - 1) * 0.15;
             }
 
-            // 2. Weight Multiplier (Diminishing returns after SizeMultiplier > 5)
+            // 2. Weight Multiplier
             let sizeExponent = customExp ? parseFloat(customExp) : 2.65;
             let weightMult = 1;
             if (sizeMultiplier > 0) {
@@ -361,18 +441,13 @@
                 weightMult = 0;
             }
 
-            // Final Calculation (Pure base value without friends or penalties)
+            // Final Calculation
             let finalValue = Math.floor(baseValue * weightMult * mutationMult);
 
             // Formatting
             const resultEl = document.getElementById('calc-result');
             resultEl.innerHTML = `<i data-lucide="coins" style="display:inline-block; vertical-align:middle; width:28px; height:28px;"></i> ${finalValue.toLocaleString()}`;
             lucide.createIcons(); // refresh icon
-
-            // Add pulse animation
-            resultEl.classList.remove('pulse-anim');
-            void resultEl.offsetWidth; // trigger reflow
-            resultEl.classList.add('pulse-anim');
         }
 
         // Add event listeners to all inputs
@@ -388,5 +463,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-js@3.8.0/lib/emoji.min.js"></script>
     <script src="apple-emoji.js"></script>
+    <script src="sky-sync.js"></script>
 </body>
 </html>
