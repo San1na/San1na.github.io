@@ -268,7 +268,7 @@ function generateConfig() {
     lua += `    }\n`;
     lua += `}\n\n`;
 
-    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/San1na/Exodus/refs/heads/main/System"))()`;
+    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/San1na/NLS/refs/heads/main/NLS.luau"))()`;
 
     document.getElementById('output-code').value = lua;
     document.getElementById('output-code').scrollTop = 0;
