@@ -28,7 +28,7 @@ function renderSniperItems() {
     list.innerHTML = '';
 
     if (sniperItems.length === 0) {
-        list.innerHTML = '<div class="empty-state">No items added yet.</div>';
+        list.innerHTML = '<div class="empty-state">Default advanced preset is active.<br>You can add more items below.</div>';
     }
 
     sniperItems.forEach((item, index) => {
@@ -51,26 +51,69 @@ function renderSniperItems() {
     });
 }
 
-function addSniperItem() {
-    const nameInput = document.getElementById('sniper-item-name');
-    const priceInput = document.getElementById('sniper-item-price');
-    const allTypesInput = document.getElementById('sniper-item-alltypes');
+function updateSniperUI() {
+    const type = document.getElementById('sniper-target-type').value;
+    
+    document.getElementById('sniper-specific-inputs').style.display = type === 'Specific' ? 'flex' : 'none';
+    document.getElementById('sniper-class-inputs').style.display = type === 'All Class' ? 'block' : 'none';
+    document.getElementById('sniper-rarity-inputs').style.display = type === 'All Rarity' ? 'block' : 'none';
+    document.getElementById('sniper-global-inputs').style.display = type === 'Global' ? 'block' : 'none';
+    document.getElementById('sniper-rap-inputs').style.display = type === 'RAP' ? 'flex' : 'none';
+}
 
-    if (!nameInput.value.trim() || !priceInput.value.trim()) {
-        flashError('sniper-item-error', 'Name and price are required.');
-        return;
+function addAdvancedSniperItem() {
+    const type = document.getElementById('sniper-target-type').value;
+    let finalName = "";
+    let isOutside = false;
+    
+    if (type === 'Specific') {
+        const baseName = document.getElementById('sniper-item-name').value.trim();
+        if (!baseName) return flashError('sniper-item-error', 'Item Name is required.');
+        
+        const variation = document.getElementById('sniper-item-variation').value;
+        const shiny = document.getElementById('sniper-item-shiny').checked;
+        
+        let prefix = "";
+        if (shiny) prefix += "Shiny ";
+        if (variation) prefix += variation + " ";
+        
+        finalName = prefix + baseName;
+    } else if (type === 'All Class') {
+        const val = document.getElementById('sniper-class-dropdown').value;
+        finalName = "All Class: " + val;
+        isOutside = true;
+    } else if (type === 'All Rarity') {
+        const val = document.getElementById('sniper-rarity-dropdown').value;
+        finalName = "All Rarity: " + val;
+        isOutside = true;
+    } else if (type === 'Global') {
+        finalName = document.getElementById('sniper-global-dropdown').value;
+        isOutside = true;
+    } else if (type === 'RAP') {
+        const rapType = document.getElementById('sniper-rap-type').value;
+        const amount = document.getElementById('sniper-rap-amount').value.trim();
+        if (!amount) return flashError('sniper-item-error', 'Amount is required.');
+        finalName = rapType + ": " + amount;
+        isOutside = true;
     }
-
+    
+    const priceInput = document.getElementById('sniper-item-price').value.trim();
+    if (!priceInput) return flashError('sniper-item-error', 'Price is required.');
+    const allTypes = document.getElementById('sniper-item-alltypes').checked;
+    
     sniperItems.push({
-        name: nameInput.value.trim(),
-        price: priceInput.value.trim(),
-        allTypes: allTypesInput.checked
+        name: finalName,
+        price: priceInput,
+        allTypes: allTypes,
+        outsideTerminal: isOutside
     });
-
-    nameInput.value = '';
-    priceInput.value = '';
-    allTypesInput.checked = false;
-    nameInput.focus();
+    
+    document.getElementById('sniper-item-name').value = '';
+    document.getElementById('sniper-rap-amount').value = '';
+    document.getElementById('sniper-item-price').value = '';
+    document.getElementById('sniper-item-shiny').checked = false;
+    document.getElementById('sniper-item-alltypes').checked = false;
+    
     renderSniperItems();
 }
 
@@ -111,32 +154,70 @@ function renderSellerItems() {
     });
 }
 
-function addSellerItem() {
-    const nameInput = document.getElementById('seller-item-name');
-    const priceInput = document.getElementById('seller-item-price');
-    const amountInput = document.getElementById('seller-item-amount');
-    const allTypesInput = document.getElementById('seller-item-alltypes');
-    const priorityInput = document.getElementById('seller-item-priority');
+function updateSellerUI() {
+    const type = document.getElementById('seller-target-type').value;
+    
+    document.getElementById('seller-specific-inputs').style.display = type === 'Specific' ? 'flex' : 'none';
+    document.getElementById('seller-class-inputs').style.display = type === 'All Class' ? 'block' : 'none';
+    document.getElementById('seller-rarity-inputs').style.display = type === 'All Rarity' ? 'block' : 'none';
+    document.getElementById('seller-global-inputs').style.display = type === 'Global' ? 'block' : 'none';
+    document.getElementById('seller-rap-inputs').style.display = type === 'RAP' ? 'flex' : 'none';
+}
 
-    if (!nameInput.value.trim() || !priceInput.value.trim()) {
-        flashError('seller-item-error', 'Name and price are required.');
-        return;
+function addAdvancedSellerItem() {
+    const type = document.getElementById('seller-target-type').value;
+    let finalName = "";
+    
+    if (type === 'Specific') {
+        const baseName = document.getElementById('seller-item-name').value.trim();
+        if (!baseName) return flashError('seller-item-error', 'Item Name is required.');
+        
+        const variation = document.getElementById('seller-item-variation').value;
+        const shiny = document.getElementById('seller-item-shiny').checked;
+        
+        let prefix = "";
+        if (shiny) prefix += "Shiny ";
+        if (variation) prefix += variation + " ";
+        
+        finalName = prefix + baseName;
+    } else if (type === 'All Class') {
+        const val = document.getElementById('seller-class-dropdown').value;
+        finalName = "All Class: " + val;
+    } else if (type === 'All Rarity') {
+        const val = document.getElementById('seller-rarity-dropdown').value;
+        finalName = "All Rarity: " + val;
+    } else if (type === 'Global') {
+        finalName = document.getElementById('seller-global-dropdown').value;
+    } else if (type === 'RAP') {
+        const rapType = document.getElementById('seller-rap-type').value;
+        const amount = document.getElementById('seller-rap-amount').value.trim();
+        if (!amount) return flashError('seller-item-error', 'Amount is required.');
+        finalName = rapType + ": " + amount;
     }
-
+    
+    const priceInput = document.getElementById('seller-item-price').value.trim();
+    if (!priceInput) return flashError('seller-item-error', 'Price is required.');
+    
+    const amountInput = document.getElementById('seller-item-amount');
+    const allTypes = document.getElementById('seller-item-alltypes').checked;
+    const priority = document.getElementById('seller-item-priority').checked;
+    
     sellerItems.push({
-        name: nameInput.value.trim(),
-        price: priceInput.value.trim(),
+        name: finalName,
+        price: priceInput,
         amount: amountInput.value.trim() !== '' ? parseInt(amountInput.value) : null,
-        allTypes: allTypesInput.checked,
-        priority: priorityInput.checked
+        allTypes: allTypes,
+        priority: priority
     });
-
-    nameInput.value = '';
-    priceInput.value = '';
-    amountInput.value = '';
-    allTypesInput.checked = false;
-    priorityInput.checked = false;
-    nameInput.focus();
+    
+    document.getElementById('seller-item-name').value = '';
+    document.getElementById('seller-rap-amount').value = '';
+    document.getElementById('seller-item-price').value = '';
+    document.getElementById('seller-item-amount').value = '';
+    document.getElementById('seller-item-shiny').checked = false;
+    document.getElementById('seller-item-alltypes').checked = false;
+    document.getElementById('seller-item-priority').checked = false;
+    
     renderSellerItems();
 }
 
@@ -156,7 +237,9 @@ function toLuaVal(val) {
 }
 
 function generateConfig() {
-    let lua = `getgenv().Settings = {\n`;
+    const scriptKey = document.getElementById('script-key').value.trim();
+    let lua = `getgenv().SCRIPT_KEY = "${scriptKey}"\n\n`;
+    lua += `getgenv().Settings = {\n`;
 
     const sniperActive = document.getElementById('sniper-active').checked;
     lua += `    Sniper = {\n`;
@@ -165,15 +248,31 @@ function generateConfig() {
     lua += `            SearchTerminal = {\n`;
     lua += `                "Search Items via Trading Terminal, Custom Keywords NOT supported here.",\n`;
 
-    sniperItems.forEach((item, idx) => {
-        let props = [];
-        props.push(`Price = ${toLuaVal(item.price)}`);
-        if (item.allTypes) props.push(`AllTypes = true`);
+    const terminalItems = sniperItems.filter(item => !item.outsideTerminal);
+    const globalItems = sniperItems.filter(item => item.outsideTerminal);
 
-        lua += `                ["${item.name}"] = { ${props.join(', ')} }${idx < sniperItems.length - 1 ? ',' : ''}\n`;
+    terminalItems.forEach((item, idx) => {
+        let propsStr = item.customProps;
+        if (!propsStr) {
+            let props = [`Price = ${toLuaVal(item.price)}`];
+            if (item.allTypes) props.push(`AllTypes = true`);
+            propsStr = props.join(', ');
+        }
+        lua += `                ["${item.name}"] = { ${propsStr} }${idx < terminalItems.length - 1 ? ',' : ''}\n`;
     });
 
-    lua += `            }\n`;
+    lua += `            },\n`;
+    
+    globalItems.forEach((item, idx) => {
+        let propsStr = item.customProps;
+        if (!propsStr) {
+            let props = [`Price = ${toLuaVal(item.price)}`];
+            if (item.allTypes) props.push(`AllTypes = true`);
+            propsStr = props.join(', ');
+        }
+        lua += `            ["${item.name}"] = { ${propsStr} }${idx < globalItems.length - 1 ? ',' : ''}\n`;
+    });
+
     lua += `        },\n`;
 
     const snSwitchAct = document.getElementById('sniper-switch-active').checked;
@@ -268,7 +367,7 @@ function generateConfig() {
     lua += `    }\n`;
     lua += `}\n\n`;
 
-    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/San1na/NLS/refs/heads/main/NLS.luau"))()`;
+    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/Xranbfg132/PetSim99Plaza/refs/heads/main/FREE"))()`;
 
     document.getElementById('output-code').value = lua;
     document.getElementById('output-code').scrollTop = 0;
@@ -289,11 +388,101 @@ function copyToClipboard() {
     }, 2000);
 }
 
+function initCustomSelects() {
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+        if (select.nextElementSibling && select.nextElementSibling.classList.contains('custom-select-wrapper')) return;
+        
+        select.style.display = 'none';
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'custom-select-wrapper';
+        
+        const trigger = document.createElement('div');
+        trigger.className = 'custom-select-trigger';
+        
+        const textSpan = document.createElement('span');
+        if (select.options.length > 0) {
+            textSpan.textContent = select.options[select.selectedIndex].text;
+        }
+        
+        const arrow = document.createElement('div');
+        arrow.className = 'arrow';
+        
+        trigger.appendChild(textSpan);
+        trigger.appendChild(arrow);
+        
+        const optionsList = document.createElement('div');
+        optionsList.className = 'custom-options';
+        
+        Array.from(select.options).forEach(option => {
+            const opt = document.createElement('div');
+            opt.className = 'custom-option';
+            if (option.selected) opt.classList.add('selected');
+            opt.textContent = option.text;
+            
+            opt.addEventListener('click', function(e) {
+                e.stopPropagation();
+                select.value = option.value;
+                const event = new Event('change', { bubbles: true });
+                select.dispatchEvent(event);
+                
+                textSpan.textContent = option.text;
+                optionsList.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                wrapper.classList.remove('open');
+                trigger.classList.remove('active');
+            });
+            optionsList.appendChild(opt);
+        });
+        
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                if (w !== wrapper) {
+                    w.classList.remove('open');
+                    w.querySelector('.custom-select-trigger').classList.remove('active');
+                }
+            });
+            wrapper.classList.toggle('open');
+            trigger.classList.toggle('active');
+        });
+        
+        wrapper.appendChild(trigger);
+        wrapper.appendChild(optionsList);
+        
+        select.parentNode.insertBefore(wrapper, select.nextSibling);
+        
+        select.addEventListener('change', () => {
+            if (select.selectedIndex >= 0) {
+                const selectedOpt = select.options[select.selectedIndex];
+                textSpan.textContent = selectedOpt.text;
+                optionsList.querySelectorAll('.custom-option').forEach(o => {
+                    o.classList.remove('selected');
+                    if (o.textContent === selectedOpt.text) o.classList.add('selected');
+                });
+            }
+        });
+    });
+    
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+            w.classList.remove('open');
+            if(w.querySelector('.custom-select-trigger')) {
+                w.querySelector('.custom-select-trigger').classList.remove('active');
+            }
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    sniperItems.push({ name: "All Titanics", price: "4b", allTypes: true });
-    sniperItems.push({ name: "Origami Shark", price: "22m", allTypes: false });
-    sniperItems.push({ name: "Mars Monkey", price: "22m", allTypes: false });
-    sniperItems.push({ name: "Ghostly Bunny", price: "22m", allTypes: false });
+    sniperItems.push({ name: "Nice Egg", price: "5%", allTypes: false, customProps: 'Price = "5%", InventoryLimit = 355' });
+    sniperItems.push({ name: "Huge Night Terror Cat", price: "50%", allTypes: false, customProps: 'Price = "50%", UseCosmicValues = true' });
+    sniperItems.push({ name: "All Class: Misc", price: "5", allTypes: false, customProps: 'Price = 5', outsideTerminal: true });
+    sniperItems.push({ name: "All Rarity: Celestial", price: "50%", allTypes: false, customProps: 'Price = "50%"', outsideTerminal: true });
+    sniperItems.push({ name: "Shiny Rainbow Broomstick Cat", price: "+2%", allTypes: false, customProps: 'Price = "+2%"', outsideTerminal: true });
+    sniperItems.push({ name: "All Huges", price: "15m", allTypes: true, customProps: 'Price = "15m", DetectManipulation = true, AllTypes = true', outsideTerminal: true });
     renderSniperItems();
 
     sellerItems.push({ name: "All Huges", price: "+20%", amount: null, allTypes: true, priority: false });
@@ -301,6 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sellerItems.push({ name: "Coins Potion 5", price: "5", amount: null, allTypes: false, priority: true });
     renderSellerItems();
 
-    enterKeySubmits(['sniper-item-name', 'sniper-item-price'], addSniperItem);
-    enterKeySubmits(['seller-item-name', 'seller-item-price', 'seller-item-amount'], addSellerItem);
+    enterKeySubmits(['sniper-item-name', 'sniper-rap-amount', 'sniper-item-price'], addAdvancedSniperItem);
+    enterKeySubmits(['seller-item-name', 'seller-rap-amount', 'seller-item-price', 'seller-item-amount'], addAdvancedSellerItem);
+
+    initCustomSelects();
 });

@@ -36,7 +36,7 @@
                     <div class="feature-item">
                         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div>
                         <div class="feature-text">
-                            <span class="feature-title">[BETA] [PS99 ONLY] Detect Manipulation</span>
+                            <span class="feature-title">Detect Manipulation</span>
                             <code class="feature-code">DetectManipulation = true</code>
                         </div>
                     </div>
@@ -192,6 +192,18 @@
             </section>
 
             <div class="panels">
+                <section class="panel" id="general-panel">
+                    <div class="panel-header">
+                        <h2>General</h2>
+                    </div>
+                    <div class="panel-content">
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-muted);">Script Key</label>
+                            <input type="text" id="script-key" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;" placeholder="" value="">
+                        </div>
+                    </div>
+                </section>
+
                 <section class="panel" id="sniper-panel">
                     <div class="panel-header">
                         <h2>Sniper</h2>
@@ -206,13 +218,87 @@
                                 <h3>Items to Snipe</h3>
                             </div>
                             <div id="sniper-items-list" class="items-list"></div>
-                            <div class="add-item-box">
-                                <input type="text" id="sniper-item-name" placeholder="Item Name (e.g. Ghostly Bunny)">
-                                <input type="text" id="sniper-item-price" placeholder="Max Price (e.g. 22m)">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="sniper-item-alltypes"> All Types
-                                </label>
-                                <button type="button" class="btn btn-secondary" onclick="addSniperItem()">Add Item</button>
+                            <div class="add-item-box" style="display:flex; flex-direction:column; gap:8px; align-items:stretch;">
+                                <select id="sniper-target-type" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;" onchange="updateSniperUI()">
+                                    <option value="Specific">Specific Item (Pets & Items)</option>
+                                    <option value="All Class">All Class</option>
+                                    <option value="All Rarity">All Rarity</option>
+                                    <option value="Global">Global Category</option>
+                                    <option value="RAP">RAP / Difficulty Filter</option>
+                                </select>
+
+                                <!-- Specific Item -->
+                                <div id="sniper-specific-inputs" style="display:flex; flex-direction:column; gap:8px;">
+                                    <input type="text" id="sniper-item-name" placeholder="Item Name (e.g. Huge Cat)">
+                                    <div style="display: flex; gap: 12px; align-items: center;">
+                                        <select id="sniper-item-variation" style="flex:1; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                            <option value="">Normal</option>
+                                            <option value="Golden">Golden</option>
+                                            <option value="Rainbow">Rainbow</option>
+                                        </select>
+                                        <label class="checkbox-label" style="margin:0; flex-shrink:0;">
+                                            <input type="checkbox" id="sniper-item-shiny"> Shiny
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- All Class -->
+                                <div id="sniper-class-inputs" style="display:none;">
+                                    <select id="sniper-class-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="Misc">Misc</option>
+                                        <option value="Pet">Pet</option>
+                                        <option value="Egg">Egg</option>
+                                        <option value="Enchant">Enchant</option>
+                                        <option value="Potion">Potion</option>
+                                        <option value="Hoverboard">Hoverboard</option>
+                                        <option value="Booth">Booth</option>
+                                        <option value="Lootbox">Lootbox</option>
+                                    </select>
+                                </div>
+
+                                <!-- All Rarity -->
+                                <div id="sniper-rarity-inputs" style="display:none;">
+                                    <select id="sniper-rarity-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="Basic">Basic</option>
+                                        <option value="Rare">Rare</option>
+                                        <option value="Epic">Epic</option>
+                                        <option value="Legendary">Legendary</option>
+                                        <option value="Mythical">Mythical</option>
+                                        <option value="Exclusive">Exclusive</option>
+                                        <option value="Secret">Secret</option>
+                                        <option value="Huge">Huge</option>
+                                        <option value="Titanic">Titanic</option>
+                                        <option value="Celestial">Celestial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Global Category -->
+                                <div id="sniper-global-inputs" style="display:none;">
+                                    <select id="sniper-global-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="All Huges">All Huges</option>
+                                        <option value="All Titanics">All Titanics</option>
+                                        <option value="All Exclusives">All Exclusives</option>
+                                    </select>
+                                </div>
+
+                                <!-- RAP Filter -->
+                                <div id="sniper-rap-inputs" style="display:none; flex-direction:column; gap:8px;">
+                                    <select id="sniper-rap-type" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="RAP Above">RAP Above</option>
+                                        <option value="Difficulty Above">Difficulty Above</option>
+                                    </select>
+                                    <input type="text" id="sniper-rap-amount" placeholder="Amount (e.g. 10m)">
+                                </div>
+
+                                <!-- Shared Fields -->
+                                <input type="text" id="sniper-item-price" placeholder="Max Price (e.g. 22m, +5%)" style="margin-top:4px;">
+                                
+                                <div style="display: flex; gap: 12px; align-items: center; margin-top: 4px;">
+                                    <button type="button" class="btn btn-secondary" onclick="addAdvancedSniperItem()" style="flex:1; margin:0;">Add Item</button>
+                                    <label class="checkbox-label" style="margin:0; flex-shrink:0;">
+                                        <input type="checkbox" id="sniper-item-alltypes"> All Types
+                                    </label>
+                                </div>
                             </div>
                             <p class="helper-text">Examples: <strong>"Shiny Huge Cat"</strong>, <strong>"+5%"</strong> (buy for 5% above RAP), or <strong>5000</strong> (fixed price).</p>
                             <p class="field-error" id="sniper-item-error">Name and price are required.</p>
@@ -303,27 +389,103 @@
                         <div class="form-group">
                             <h3>Items to Sell</h3>
                             <div id="seller-items-list" class="items-list"></div>
-                            <div class="add-item-box seller-box">
-                                <input type="text" id="seller-item-name" placeholder="Item Name (e.g. All Huges)">
-                                <input type="text" id="seller-item-price" placeholder="Price (e.g. +20% or 1b)">
-                                <div class="number-input">
-                                    <input type="number" id="seller-item-amount" placeholder="Amount (opt)" min="1">
-                                    <div class="spinner-controls">
-                                        <button type="button" tabindex="-1" onclick="this.parentElement.previousElementSibling.stepUp()">
-                                            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                                        </button>
-                                        <button type="button" tabindex="-1" onclick="this.parentElement.previousElementSibling.stepDown()">
-                                            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                        </button>
+                            <div class="add-item-box seller-box" style="display:flex; flex-direction:column; gap:8px; align-items:stretch;">
+                                <select id="seller-target-type" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;" onchange="updateSellerUI()">
+                                    <option value="Specific">Specific Item (Pets & Items)</option>
+                                    <option value="All Class">All Class</option>
+                                    <option value="All Rarity">All Rarity</option>
+                                    <option value="Global">Global Category</option>
+                                    <option value="RAP">RAP / Difficulty Filter</option>
+                                </select>
+
+                                <!-- Specific Item -->
+                                <div id="seller-specific-inputs" style="display:flex; flex-direction:column; gap:8px;">
+                                    <input type="text" id="seller-item-name" placeholder="Item Name (e.g. Huge Cat)">
+                                    <div style="display: flex; gap: 12px; align-items: center;">
+                                        <select id="seller-item-variation" style="flex:1; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                            <option value="">Normal</option>
+                                            <option value="Golden">Golden</option>
+                                            <option value="Rainbow">Rainbow</option>
+                                        </select>
+                                        <label class="checkbox-label" style="margin:0; flex-shrink:0;">
+                                            <input type="checkbox" id="seller-item-shiny"> Shiny
+                                        </label>
                                     </div>
                                 </div>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="seller-item-alltypes"> All Types
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="seller-item-priority"> Priority
-                                </label>
-                                <button type="button" class="btn btn-secondary" onclick="addSellerItem()">Add Item</button>
+
+                                <!-- All Class -->
+                                <div id="seller-class-inputs" style="display:none;">
+                                    <select id="seller-class-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="Misc">Misc</option>
+                                        <option value="Pet">Pet</option>
+                                        <option value="Egg">Egg</option>
+                                        <option value="Enchant">Enchant</option>
+                                        <option value="Potion">Potion</option>
+                                        <option value="Hoverboard">Hoverboard</option>
+                                        <option value="Booth">Booth</option>
+                                        <option value="Lootbox">Lootbox</option>
+                                    </select>
+                                </div>
+
+                                <!-- All Rarity -->
+                                <div id="seller-rarity-inputs" style="display:none;">
+                                    <select id="seller-rarity-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="Basic">Basic</option>
+                                        <option value="Rare">Rare</option>
+                                        <option value="Epic">Epic</option>
+                                        <option value="Legendary">Legendary</option>
+                                        <option value="Mythical">Mythical</option>
+                                        <option value="Exclusive">Exclusive</option>
+                                        <option value="Secret">Secret</option>
+                                        <option value="Huge">Huge</option>
+                                        <option value="Titanic">Titanic</option>
+                                        <option value="Celestial">Celestial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Global Category -->
+                                <div id="seller-global-inputs" style="display:none;">
+                                    <select id="seller-global-dropdown" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="All Huges">All Huges</option>
+                                        <option value="All Titanics">All Titanics</option>
+                                        <option value="All Exclusives">All Exclusives</option>
+                                    </select>
+                                </div>
+
+                                <!-- RAP Filter -->
+                                <div id="seller-rap-inputs" style="display:none; flex-direction:column; gap:8px;">
+                                    <select id="seller-rap-type" style="width:100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-color); font-family: 'JetBrains Mono', monospace;">
+                                        <option value="RAP Above">RAP Above</option>
+                                        <option value="Difficulty Above">Difficulty Above</option>
+                                    </select>
+                                    <input type="text" id="seller-rap-amount" placeholder="Amount (e.g. 10m)">
+                                </div>
+
+                                <!-- Shared Fields -->
+                                <div style="display: flex; gap: 8px;">
+                                    <input type="text" id="seller-item-price" placeholder="Price (e.g. +20% or 1b)" style="flex:1;">
+                                    <div class="number-input" style="width:120px;">
+                                        <input type="number" id="seller-item-amount" placeholder="Amount" min="1">
+                                        <div class="spinner-controls">
+                                            <button type="button" tabindex="-1" onclick="this.parentElement.previousElementSibling.stepUp()">
+                                                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                            </button>
+                                            <button type="button" tabindex="-1" onclick="this.parentElement.previousElementSibling.stepDown()">
+                                                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: center; margin-top: 4px;">
+                                    <button type="button" class="btn btn-secondary" onclick="addAdvancedSellerItem()" style="flex:1; margin:0;">Add Item</button>
+                                    <label class="checkbox-label" style="margin:0; flex-shrink:0;">
+                                        <input type="checkbox" id="seller-item-alltypes"> All Types
+                                    </label>
+                                    <label class="checkbox-label" style="margin:0; flex-shrink:0;">
+                                        <input type="checkbox" id="seller-item-priority"> Priority
+                                    </label>
+                                </div>
                             </div>
                             <p class="helper-text">Examples: <strong>"All Huges"</strong>, <strong>"-1m"</strong> (sell for 1m under RAP), or <strong>"+5%"</strong> (5% above RAP).</p>
                             <p class="field-error" id="seller-item-error">Name and price are required.</p>
