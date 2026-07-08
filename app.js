@@ -238,7 +238,7 @@ function toLuaVal(val) {
 
 function generateConfig() {
     const scriptKey = document.getElementById('script-key').value.trim();
-    let lua = `getgenv().SCRIPT_KEY = "${scriptKey}"\n\n`;
+    let lua = `script_key = "${scriptKey}"\n\n`;
     lua += `getgenv().Settings = {\n`;
 
     const sniperActive = document.getElementById('sniper-active').checked;
@@ -367,7 +367,7 @@ function generateConfig() {
     lua += `    }\n`;
     lua += `}\n\n`;
 
-    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/Xranbfg132/PetSim99Plaza/refs/heads/main/FREE"))()`;
+    lua += `loadstring(game:HttpGet("https://raw.githubusercontent.com/Xranbfg132/NLPLAZAFREE/refs/heads/main/FREE"))()`;
 
     document.getElementById('output-code').value = lua;
     document.getElementById('output-code').scrollTop = 0;
